@@ -51,7 +51,8 @@ Backend:
 * Add various level of descriptions to explain data & the business rules.
 * Error handling: creating domain specific errors depending on which part of the app fails (+ logging).
 * Refactoring db queries a bit.
-* Current way of handling event pagination is simple, but is not performant & has multiple edge cases including the `showMore` computing: should implement relay paging.  
+* Current way of handling event pagination is simple, but is not performant & has multiple edge cases including the `showMore` computing: should implement relay paging.
+* Externalize configuration (server & database) to make the app more prodution ready.  
 * Tests:
   * Not needing the db to be up for all tests.
   * Adding tests using the status filter + paging.
