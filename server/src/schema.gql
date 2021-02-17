@@ -1,0 +1,75 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type HostDto {
+  """Host full name"""
+  fullName: String!
+
+  """Host avatar url"""
+  avatarUrl: String
+}
+
+type EventDto {
+  id: ID!
+  title: String!
+  status: EventStatus!
+
+  """
+  Date of the next future session or the last session if there are no next sessions
+  """
+  sessionDate: DateTime
+
+  """total sessions count for the event"""
+  totalSessionsCount: Int!
+  hosts: [HostDto!]!
+
+  """registered people count (excluding hosts) for all the event sessions"""
+  registeredAttendeesCount: Int!
+
+  """total messages count of all the event sessions"""
+  totalMessagesCount: Int!
+}
+
+"""
+An event status can be:
+    - 'draft' if the event is not published,
+    - 'upcoming' is there is at least a future session,
+    - 'past' is all event sessions are in the past.
+"""
+enum EventStatus {
+  DRAFT
+  UPCOMING
+  PAST
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type EventsPage {
+  events: [EventDto!]!
+  hasMore: Boolean!
+}
+
+type Query {
+  eventsPage(eventsPageInput: EventsPageInput!): EventsPage!
+}
+
+input EventsPageInput {
+  """Page number of events to fetch (offset = page * pageSize)"""
+  page: Int!
+
+  """Maximum number of events to fetch"""
+  pageSize: Int!
+  filters: EventsPageInputFilters
+}
+
+input EventsPageInputFilters {
+  status: EventStatus
+}
+
+type Mutation {
+  createEvent(title: String!): EventDto!
+}
